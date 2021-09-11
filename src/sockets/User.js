@@ -3,7 +3,7 @@ class Socket {
     this.users = {};
   }
 
-  addUser(id, nickname) {
+  changeUser(id, nickname) {
     this.users[id] = nickname;
   }
 

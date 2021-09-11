@@ -46,6 +46,11 @@ submitMessage.addEventListener('submit', (e) => {
   textMessage.value = '';
 });
 
+submitNickname.addEventListener('click', () => {
+  nickname = inputNickname.value;
+  client.emit('updateNickname', inputNickname.value);
+});
+
 client.emit('init', nickname);
 
 client.on('init', (messages) => {
@@ -57,10 +62,16 @@ client.on('init', (messages) => {
 
 client.on('updateUsers', (users) => {
   ulUsers.innerHTML = '';
-  users.forEach(createUser);
+  const removeUser = users.filter((user) => user !== nickname);
+  [nickname, ...removeUser].forEach(createUser);
 });
 
 client.on('message', (message) => {
   const newMessage = createMessage(message);
   containerMsg.append(newMessage);
 });
+
+// client.on('userDisconnect', (user) => {
+//   const list = document.querySelectorAll('#list-users li');
+//   list.forEach((item) => item.textContent === user && item.remove());
+// });
