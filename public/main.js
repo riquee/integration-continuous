@@ -1,3 +1,5 @@
+/* --------------------------------------------------------------------------------- */
+
 const client = window.io();
 const containerMsg = document.querySelector('#listMessages');
 const textMessage = document.querySelector('#messageInput');
@@ -5,6 +7,8 @@ const ulUsers = document.querySelector('#list-users');
 const submitMessage = document.querySelector('#formSendMessage');
 const submitNickname = document.querySelector('#btn-nickname');
 const inputNickname = document.querySelector('#input-nickname');
+
+/* --------------------------------------------------------------------------------- */
 
 const randomString = (size) => {
   let string = '';
@@ -17,7 +21,7 @@ const randomString = (size) => {
 
 let nickname = `Guest-${randomString(10)}`;
 
-console.log(nickname);
+/* --------------------------------------------------------------------------------- */
 
 const createMessage = (message) => {
   const messageElement = document.createElement('div');
@@ -40,6 +44,8 @@ const createUser = (user) => {
   ulUsers.append(userElement);
 };
 
+/* --------------------------------------------------------------------------------- */
+
 submitMessage.addEventListener('submit', (e) => {
   e.preventDefault();
   client.emit('message', { chatMessage: textMessage.value, nickname });
@@ -50,6 +56,8 @@ submitNickname.addEventListener('click', () => {
   nickname = inputNickname.value;
   client.emit('updateNickname', inputNickname.value);
 });
+
+/* --------------------------------------------------------------------------------- */
 
 client.emit('init', nickname);
 
@@ -70,8 +78,3 @@ client.on('message', (message) => {
   const newMessage = createMessage(message);
   containerMsg.append(newMessage);
 });
-
-// client.on('userDisconnect', (user) => {
-//   const list = document.querySelectorAll('#list-users li');
-//   list.forEach((item) => item.textContent === user && item.remove());
-// });
