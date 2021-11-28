@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - '${DB_PORT}:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_DATABASE}
+    volumes:
+      - dbdata-volume:/data/db
+  app:
+    container_name: app
+    build:
+      context: ./app
+    env_file:
+      - .env
+    command: npm run start
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+
+volumes:
+  dbdata-volume:

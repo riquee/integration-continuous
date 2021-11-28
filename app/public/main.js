@@ -8,8 +8,6 @@ const submitMessage = document.querySelector('#formSendMessage');
 const submitNickname = document.querySelector('#btn-nickname');
 const inputNickname = document.querySelector('#input-nickname');
 
-/* --------------------------------------------------------------------------------- */
-
 const randomString = (size) => {
   let string = '';
   const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -46,8 +44,8 @@ const createUser = (user) => {
 
 /* --------------------------------------------------------------------------------- */
 
-submitMessage.addEventListener('submit', (e) => {
-  e.preventDefault();
+submitMessage.addEventListener('submit', (event) => {
+  event.preventDefault();
   client.emit('message', { chatMessage: textMessage.value, nickname });
   textMessage.value = '';
 });

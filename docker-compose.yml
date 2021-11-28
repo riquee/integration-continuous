@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - '${DB_PORT}:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_DATABASE}
+    volumes:
+      - ./data/mongo:/data/db
+    networks:
+      - webchat-network
+  app:
+    container_name: app
+    build:
+      context: ./app
+    env_file:
+      - .env
+    command: npm run start
+    ports:
+      - '3000'
+    depends_on:
+      - mongodb
+    networks:
+      - webchat-network
+  nginx:
+    image: nginx:1.17.6-alpine
+    container_name: nginx
+    volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    networks:
+      - webchat-network
+
+networks:
+  webchat-network:
+    driver: bridge
