@@ -2,3 +2,8 @@ steps:
   # running docker-compose
   - name: 'docker/compose:1.26.2'
     args: ['up', '-d']
+    env:
+    - 'DB_PORT=27017
+    - 'DB_USERNAME=
+    - 'DB_PASSWORD=
+    - 'DB_DATABASE=webchat
