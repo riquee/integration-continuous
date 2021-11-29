@@ -4,13 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest --runInBand  --detectOpenHandles --forceExit",
-    "test-coverage": "jest --coverage",
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "debug": "nodemon server.js",
-    "lint": "eslint --no-inline-config --ext .js,.jsx --no-error-on-unmatched-pattern -c .eslintrc.json .",
-    "lint:styles": "stylelint **/*.css --config .stylelintrc.json --ignore-disables --allow-empty-input"
+    "debug": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
